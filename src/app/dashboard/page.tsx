@@ -40,7 +40,9 @@ export default function DashboardPage() {
           <PromoCard />
         </div>
       </div>
-      <AssetsAndLiabilities data={mockAssetsAndLiabilities} />
+      <div className="mb-6">
+        <AssetsAndLiabilities data={mockAssetsAndLiabilities} />
+      </div>
     </div>
   );
 }
