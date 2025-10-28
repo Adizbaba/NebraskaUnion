@@ -77,6 +77,14 @@ export default function Hero() {
                           <SelectItem value="digital-banking">
                             Digital Banking
                           </SelectItem>
+                          <SelectItem value="mortgage">Mortgage</SelectItem>
+                          <SelectItem value="emoney">eMoney</SelectItem>
+                          <SelectItem value="paycard-employee-login">
+                            Paycard Employee Login
+                          </SelectItem>
+                          <SelectItem value="trust-service">
+                            Trust Service
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
