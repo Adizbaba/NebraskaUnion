@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import QuickActions from '@/components/dashboard/quick-actions';
 import { useUser } from '@/firebase';
+import PromoCard from '@/components/dashboard/promo-card';
 
 export default function DashboardPage() {
   const { user } = useUser();
@@ -34,8 +35,9 @@ export default function DashboardPage() {
         <div className="lg:col-span-2">
           <AccountList accounts={mockAccounts} />
         </div>
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 space-y-6">
           <QuickActions />
+          <PromoCard />
         </div>
       </div>
       <AssetsAndLiabilities data={mockAssetsAndLiabilities} />

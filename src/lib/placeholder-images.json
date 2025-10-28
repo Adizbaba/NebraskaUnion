@@ -5,6 +5,12 @@
       "description": "A happy family smiling, representing financial security and happiness.",
       "imageUrl": "https://images.unsplash.com/photo-1511632765486-a01980e01a18?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxoYXBweSUyMHBlb3BsZXxlbnwwfHx8fDE3NjE2NjE2MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "happy people"
+    },
+    {
+      "id": "promo-house",
+      "description": "A modern house with a beautiful garden, representing a dream home.",
+      "imageUrl": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxob3VzZXxlbnwwfHx8fDE3NjE2NjE2MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern house"
     }
   ]
 }
