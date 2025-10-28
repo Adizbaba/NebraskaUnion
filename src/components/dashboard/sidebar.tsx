@@ -7,7 +7,6 @@ import {
     SidebarMenuItem,
     SidebarMenuButton,
     SidebarFooter,
-    SidebarTrigger,
     SidebarSeparator
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/layout/logo';
@@ -55,10 +54,7 @@ export default function DashboardSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <div className="flex items-center justify-between">
-            <Logo />
-            <SidebarTrigger className="hidden md:flex" />
-        </div>
+        <Logo />
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
