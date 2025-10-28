@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,9 +12,20 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Eye, EyeOff, Lock } from 'lucide-react';
+import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Hero() {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-family');
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <section className="relative h-auto w-full text-primary-foreground md:h-[600px]">
@@ -49,34 +62,74 @@ export default function Hero() {
             <div className="flex justify-center md:justify-end">
               <Card className="w-full max-w-md bg-card/80 text-card-foreground backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle>Member Login</CardTitle>
-                  <CardDescription>
-                    Access your account securely.
-                  </CardDescription>
+                  <CardTitle>Log in to our banking and investment services</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <form className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="username">Username</Label>
+                      <Select defaultValue="digital-banking">
+                        <SelectTrigger className="bg-background/70">
+                          <SelectValue placeholder="Select a service" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="digital-banking">
+                            Digital Banking
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="user-id">User ID</Label>
                       <Input
-                        id="username"
-                        placeholder="Enter your username"
+                        id="user-id"
+                        placeholder="Enter your user ID"
                         className="bg-background/70"
                       />
                     </div>
-                    <div className="space-y-2">
+                    <div className="relative space-y-2">
                       <Label htmlFor="password">Password</Label>
                       <Input
                         id="password"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         placeholder="Enter your password"
-                        className="bg-background/70"
+                        className="bg-background/70 pr-10"
                       />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-1 top-6 h-7 w-7 text-muted-foreground hover:bg-transparent"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-5 w-5" />
+                        ) : (
+                          <Eye className="h-5 w-5" />
+                        )}
+                        <span className="sr-only">
+                          {showPassword ? 'Hide password' : 'Show password'}
+                        </span>
+                      </Button>
                     </div>
                     <Button type="submit" className="w-full">
-                      Sign In
+                      <Lock className="mr-2 h-4 w-4" />
+                      LOG IN
                     </Button>
                   </form>
+                  <div className="mt-4 flex justify-between text-sm">
+                    <Link
+                      href="#"
+                      className="font-medium text-primary hover:underline"
+                    >
+                      Enroll for Digital Banking
+                    </Link>
+                    <Link
+                      href="#"
+                      className="font-medium text-primary hover:underline"
+                    >
+                      Forgot ID or password
+                    </Link>
+                  </div>
                 </CardContent>
               </Card>
             </div>
