@@ -7,20 +7,31 @@ import {
     SidebarMenuItem,
     SidebarMenuButton,
     SidebarFooter,
-    SidebarTrigger
+    SidebarTrigger,
+    SidebarSeparator
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/layout/logo';
-import { Home, Landmark, Wallet, CreditCard, Repeat, Settings, HelpCircle, Activity } from 'lucide-react';
+import { Home, Wallet, Repeat, Send, CreditCard, Landmark, History, FileText, FileBarChart2, Settings, HelpCircle, LogOut } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { useAuth } from '@/firebase';
+import { signOut } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 
-const menuItems = [
-    { href: '/dashboard', label: 'Home', icon: Home },
+
+const topMenuItems = [
+    { href: '/dashboard', label: 'Overview', icon: Home },
     { href: '#', label: 'Accounts', icon: Wallet },
-    { href: '#', label: 'Pay & transfer', icon: Repeat },
-    { href: '#', label: 'Cards', icon: CreditCard },
+    { href: '#', label: 'Transfers', icon: Repeat },
+    { href: '#', label: 'Bill Payments', icon: Send },
+    { href: '#', label: 'Credit Cards', icon: CreditCard },
     { href: '#', label: 'Loans', icon: Landmark },
-    { href: '#', label: 'Activity', icon: Activity },
+];
+
+const middleMenuItems = [
+    { href: '#', label: 'Transaction History', icon: History },
+    { href: '#', label: 'Statements', icon: FileText },
+    { href: '#', label: 'Reports', icon: FileBarChart2 },
 ];
 
 const bottomMenuItems = [
@@ -31,6 +42,16 @@ const bottomMenuItems = [
 
 export default function DashboardSidebar() {
     const pathname = usePathname();
+    const auth = useAuth();
+    const router = useRouter();
+
+    const handleSignOut = async () => {
+        if (auth) {
+          await signOut(auth);
+          router.push('/login');
+        }
+      };
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -41,7 +62,20 @@ export default function DashboardSidebar() {
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
-            {menuItems.map(item => (
+            {topMenuItems.map(item => (
+                <SidebarMenuItem key={item.label}>
+                    <SidebarMenuButton asChild isActive={pathname === item.href} tooltip={item.label}>
+                        <Link href={item.href}>
+                            <item.icon />
+                            <span>{item.label}</span>
+                        </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+            ))}
+        </SidebarMenu>
+        <SidebarSeparator />
+         <SidebarMenu>
+            {middleMenuItems.map(item => (
                 <SidebarMenuItem key={item.label}>
                     <SidebarMenuButton asChild isActive={pathname === item.href} tooltip={item.label}>
                         <Link href={item.href}>
@@ -65,6 +99,12 @@ export default function DashboardSidebar() {
                     </SidebarMenuButton>
                 </SidebarMenuItem>
             ))}
+            <SidebarMenuItem>
+                <SidebarMenuButton onClick={handleSignOut} tooltip="Log out">
+                    <LogOut />
+                    <span>Log out</span>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
