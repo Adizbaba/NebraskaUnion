@@ -19,16 +19,16 @@ export default function AssetsAndLiabilities({ data }: AssetsAndLiabilitiesProps
         <Button variant="link" className="text-primary">View portfolio</Button>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-3 gap-4 text-center">
-          <div>
+        <div className="divide-y divide-border md:grid md:grid-cols-3 md:divide-y-0 md:divide-x">
+          <div className="py-4 text-center md:py-0">
             <p className="text-sm text-muted-foreground">Total assets</p>
             <p className="text-2xl font-bold text-green-600">{data.totalAssets}</p>
           </div>
-          <div>
+          <div className="py-4 text-center md:py-0">
             <p className="text-sm text-muted-foreground">Total debts</p>
             <p className="text-2xl font-bold text-red-600">{data.totalDebts}</p>
           </div>
-          <div>
+          <div className="pt-4 text-center md:pt-0">
             <p className="text-sm text-muted-foreground">Net position</p>
             <p className="text-2xl font-bold text-gray-800">{data.netPosition}</p>
           </div>
