@@ -8,7 +8,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertTriangle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import PaymentsAndTransfers from '@/components/dashboard/payments-transfers';
+import QuickActions from '@/components/dashboard/quick-actions';
 import { useUser } from '@/firebase';
 
 export default function DashboardPage() {
@@ -35,7 +35,7 @@ export default function DashboardPage() {
           <AccountList accounts={mockAccounts} />
         </div>
         <div className="lg:col-span-1">
-          <PaymentsAndTransfers accounts={mockAccounts} />
+          <QuickActions />
         </div>
       </div>
       <AssetsAndLiabilities data={mockAssetsAndLiabilities} />
