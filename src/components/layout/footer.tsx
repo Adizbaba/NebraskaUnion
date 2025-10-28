@@ -12,7 +12,7 @@ const footerLinks = {
   'Contact': [
     { name: '123 Main St, Anytown, USA', href: '#' },
     { name: '(555) 123-4567', href: 'tel:5551234567' },
-    { name: 'contact@firsthorizon.com', href: 'mailto:contact@firsthorizon.com' },
+    { name: 'contact@firstnebraska.com', href: 'mailto:contact@firstnebraska.com' },
     { name: 'Routing #: 123456789', href: '#' },
   ],
 };
@@ -93,7 +93,7 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-primary-foreground/20 pt-8">
           <p className="text-center text-xs text-primary-foreground/70">
-            © 2025 First Horizon Credit Union. Federally insured by NCUA.
+            © 2025 First Nebraska Credit Union. Federally insured by NCUA.
           </p>
         </div>
       </div>

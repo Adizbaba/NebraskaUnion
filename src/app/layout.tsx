@@ -3,9 +3,9 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Horizon Financial | First Horizon Credit Union',
+  title: 'Horizon Financial | First Nebraska Credit Union',
   description:
-    'Welcome to First Horizon Credit Union, your trusted financial partner.',
+    'Welcome to First Nebraska Credit Union, your trusted financial partner.',
 };
 
 export default function RootLayout({

@@ -14,7 +14,7 @@ export function Logo({ className }: { className?: string }) {
       <div className="rounded-md bg-primary p-1.5 text-primary-foreground">
         <Compass className="h-5 w-5" />
       </div>
-      <span className="font-headline">First Horizon</span>
+      <span className="font-headline">First Nebraska</span>
     </Link>
   );
 }
