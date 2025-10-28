@@ -16,9 +16,9 @@ export default function DashboardHeader({ name }: DashboardHeaderProps) {
   }, []);
 
   return (
-    <div className="rounded-lg bg-yellow-400/20 p-6">
-      <h1 className="text-2xl font-bold text-gray-800">Good morning, {name}</h1>
-      {lastLogin && <p className="text-sm text-gray-600">You last logged in {lastLogin}</p>}
+    <div className="rounded-lg bg-primary/5 p-6">
+      <h1 className="text-2xl font-bold text-foreground">Good morning, {name}</h1>
+      {lastLogin && <p className="text-sm text-muted-foreground">You last logged in {lastLogin}</p>}
     </div>
   );
 }
