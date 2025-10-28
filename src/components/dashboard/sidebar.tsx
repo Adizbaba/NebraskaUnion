@@ -1,6 +1,5 @@
 'use client';
 import {
-    Sidebar,
     SidebarContent,
     SidebarHeader,
     SidebarMenu,
@@ -43,7 +42,7 @@ export default function DashboardSidebar() {
         <SidebarMenu>
             {menuItems.map(item => (
                 <SidebarMenuItem key={item.label}>
-                    <Link href={item.href} legacyBehavior passHref>
+                    <Link href={item.href} passHref>
                         <SidebarMenuButton as="a" isActive={pathname === item.href} tooltip={item.label}>
                             <item.icon />
                             <span>{item.label}</span>
@@ -57,7 +56,7 @@ export default function DashboardSidebar() {
       <SidebarMenu>
             {bottomMenuItems.map(item => (
                 <SidebarMenuItem key={item.label}>
-                    <Link href={item.href} legacyBehavior passHref>
+                    <Link href={item.href} passHref>
                         <SidebarMenuButton as="a" isActive={pathname === item.href} tooltip={item.label}>
                             <item.icon />
                             <span>{item.label}</span>
