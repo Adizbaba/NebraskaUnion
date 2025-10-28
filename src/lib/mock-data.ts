@@ -29,14 +29,33 @@ export interface Account {
 const generateTransactions = (count: number): Transaction[] => {
   const transactions: Transaction[] = [];
   const today = new Date();
-  const descriptions = ['Paycheck Deposit', 'Rent Payment', 'Grocery Store', 'Online Shopping', 'Gas Station', 'Restaurant', 'Utility Bill', 'ATM Withdrawal', 'Subscription', 'Coffee Shop'];
+  
+  const depositDescriptions = ['Paycheck Deposit', 'Client Payment', 'Investment Dividend', 'Stock Sale Proceeds', 'Wire Transfer Received', 'Check Deposit', 'Capital Gain Distribution'];
+  const withdrawalDescriptions = ['Rent Payment', 'Grocery Store', 'Online Shopping', 'Gas Station', 'Restaurant', 'Utility Bill', 'ATM Withdrawal', 'Subscription Service', 'Mortgage Payment', 'Car Loan Payment', 'Luxury Purchase', 'Investment Purchase', 'Property Tax'];
+
   for (let i = 0; i < count; i++) {
-    const date = subDays(today, Math.floor(Math.random() * 30)); // transactions in the last 30 days
-    const isDeposit = Math.random() > 0.7;
-    const description = descriptions[Math.floor(Math.random() * descriptions.length)];
-    const amount = isDeposit 
-      ? Math.random() * 2000 + 500 
-      : -(Math.random() * 500 + 10);
+    const date = subDays(today, Math.floor(Math.random() * 90)); // transactions in the last 90 days
+    const isDeposit = Math.random() > 0.65;
+    let description = '';
+    let amount = 0;
+
+    if (isDeposit) {
+      const depositType = Math.random();
+      if (depositType > 0.8) { // Large deposit
+        description = `Check Deposit #${Math.floor(Math.random() * 1000) + 500}`;
+        amount = Math.random() * 45000 + 5000;
+      } else if (depositType > 0.5) { // Mid-size deposit
+        description = depositDescriptions[Math.floor(Math.random() * depositDescriptions.length)];
+        amount = Math.random() * 4500 + 500;
+      } else { // Standard deposit
+        description = 'Paycheck Deposit';
+        amount = Math.random() * 2000 + 1500;
+      }
+    } else {
+      description = withdrawalDescriptions[Math.floor(Math.random() * withdrawalDescriptions.length)];
+      amount = -(Math.random() * 2500 + 20);
+    }
+
     transactions.push({
       id: `txn-${i}-${Date.now()}`,
       date: format(date, 'MM/dd/yyyy'),
