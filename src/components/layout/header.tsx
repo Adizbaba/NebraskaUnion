@@ -72,9 +72,13 @@ export default function Header() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>Login</DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/login">Login</Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Open Account</DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/register">Open Account</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -105,9 +109,14 @@ export default function Header() {
                   ))}
                 </nav>
                 <div className="mt-auto flex flex-col gap-2 border-t p-4">
-                  <Button variant="outline">Login</Button>
-                  <Button className="bg-accent text-accent-foreground shadow-sm hover:bg-accent/90">
-                    Open Account
+                  <Button variant="outline" asChild>
+                    <Link href="/login">Login</Link>
+                  </Button>
+                  <Button
+                    className="bg-accent text-accent-foreground shadow-sm hover:bg-accent/90"
+                    asChild
+                  >
+                    <Link href="/register">Open Account</Link>
                   </Button>
                 </div>
               </div>
