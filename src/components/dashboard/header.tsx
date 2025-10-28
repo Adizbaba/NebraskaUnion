@@ -12,8 +12,7 @@ export default function DashboardHeader({ name }: DashboardHeaderProps) {
 
   useEffect(() => {
     const now = new Date();
-    const lastLoginDate = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000); // 2 days ago
-    setLastLogin(format(lastLoginDate, "eeee, MMMM d, yyyy 'at' h:mm a (O)"));
+    setLastLogin(format(now, "eeee, MMMM d, yyyy 'at' h:mm a (O)"));
   }, []);
 
   return (
