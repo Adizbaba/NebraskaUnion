@@ -1,12 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, Search, User, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Logo } from './logo';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Input } from '../ui/input';
 
 const navLinks = [
   { name: 'Membership', href: '#' },
@@ -38,11 +46,37 @@ export default function Header() {
           </nav>
         </div>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <Button variant="ghost">Login</Button>
-          <Button className="bg-accent text-accent-foreground shadow-sm hover:bg-accent/90">
-            Open Account
-          </Button>
+        <div className="hidden items-center gap-4 md:flex">
+          <div className="relative">
+            <Input
+              type="search"
+              placeholder="Search..."
+              className="h-9 w-40 pr-9"
+            />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute right-0 top-0 h-9 w-9 text-muted-foreground"
+            >
+              <Search className="h-4 w-4" />
+              <span className="sr-only">Search</span>
+            </Button>
+          </div>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                <User className="mr-2 h-4 w-4" />
+                Account
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>Login</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Open Account</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         <div className="md:hidden">
