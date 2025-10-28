@@ -1,0 +1,103 @@
+{
+  "entities": {
+    "UserAccount": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserAccount",
+      "type": "object",
+      "description": "Represents a user account within the Horizon Financial banking application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserAccount entity."
+        },
+        "fullName": {
+          "type": "string",
+          "description": "The user's full name."
+        },
+        "userId": {
+          "type": "string",
+          "description": "The unique user ID chosen by the user, used for login."
+        },
+        "emailAddress": {
+          "type": "string",
+          "description": "The user's email address.",
+          "format": "email"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The user's phone number."
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "description": "The user's date of birth.",
+          "format": "date-time"
+        },
+        "address": {
+          "type": "string",
+          "description": "The user's street address."
+        },
+        "city": {
+          "type": "string",
+          "description": "The user's city."
+        },
+        "state": {
+          "type": "string",
+          "description": "The user's state."
+        },
+        "zipCode": {
+          "type": "string",
+          "description": "The user's zip code."
+        },
+        "accountType": {
+          "type": "string",
+          "description": "The type of account (e.g., Checking, Savings, Business)."
+        },
+        "termsAndConditionsAccepted": {
+          "type": "boolean",
+          "description": "Indicates whether the user has accepted the terms and conditions."
+        }
+      },
+      "required": [
+        "id",
+        "fullName",
+        "userId",
+        "emailAddress",
+        "phoneNumber",
+        "dateOfBirth",
+        "address",
+        "city",
+        "state",
+        "zipCode",
+        "accountType",
+        "termsAndConditionsAccepted"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}/account",
+        "definition": {
+          "entityName": "UserAccount",
+          "schema": {
+            "$ref": "#/backend/entities/UserAccount"
+          },
+          "description": "Stores the UserAccount information for a user. The `userId` parameter matches the Firebase Authentication UID, ensuring path-based ownership.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The Firebase Authentication UID of the user, providing path-based ownership."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "This design prioritizes security and scalability for the Horizon Financial banking application. It leverages path-based ownership and avoids complex authorization logic within the security rules, leading to a more maintainable and secure system. The primary collection is `/users/{userId}` which is created by Firebase Authentication. The `UserAccount` data is stored at `/users/{userId}/account`. This ensures that only the authenticated user can access their account information, supporting private data requirements and QAPs with secure `list` operations. No denormalization is required because there are no collaborative features. Every user has their own individual account."
+  }
+}

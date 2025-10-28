@@ -1,0 +1,65 @@
+/**
+ * @file Firestore Security Rules for Horizon Financial Banking App
+ *
+ * @description This ruleset enforces a strict user-ownership model for all user account data.
+ *              Each user's account information is stored under their respective Firebase Authentication UID,
+ *              ensuring that only the authenticated user can access their own data.
+ *
+ * @dataStructure All user data is nested under the `/users/{userId}/account` path,
+ *                where `{userId}` corresponds to the Firebase Authentication UID. The `UserAccount`
+ *                document contains personal and account details.
+ *
+ * @keySecurityDecisions
+ *   - User listing is disallowed to protect user privacy.
+ *   - All write operations require authentication.
+ *   - `create` operations enforce that the `userId` in the path matches the authenticated user's UID.
+ *   - `update` and `delete` operations are restricted to the owner of the account.
+ *
+ * @denormalizationForAuthorization Not applicable in this design, as path-based ownership is sufficient and scalable.
+ *                               No denormalization is required because there are no collaborative features.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Secure access to user accounts, ensuring that only the authenticated user can manage their own account data.
+     * @path /users/{userId}/account
+     * @allow (create) - User with UID 'user123' creates their account document at /users/user123/account.
+     * @allow (get, update, delete) - User with UID 'user123' retrieves, updates, or deletes their account document at /users/user123/account.
+     * @deny (create) - User with UID 'user123' attempts to create an account document for user 'user456' at /users/user456/account.
+     * @deny (update, delete) - User with UID 'user123' attempts to update or delete an account document for user 'user456' at /users/user456/account.
+     * @principle Enforces document ownership for all operations within a user's data tree.
+     */
+    match /users/{userId}/account {
+      // Allow authenticated users to read their own account data
+      allow get: if isSignedIn() && isOwner(userId);
+      // Allow authenticated users to list their own account data. This is safe because there is only one document.
+      allow list: if isSignedIn() && isOwner(userId);
+
+      // Allow creation of the account document if the user is authenticated and the userId matches the authenticated user's UID
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.id == userId;
+
+      // Allow updates to the account document if the user is the owner and the document exists.
+      allow update: if isSignedIn() && isExistingOwner(userId) && resource.data.id == request.resource.data.id;
+
+      // Allow deletion of the account document if the user is the owner and the document exists.
+      allow delete: if isSignedIn() && isExistingOwner(userId);
+    }
+
+    // Define helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Checks if the request is made by the owner of the document.
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // Checks if the request is made by the owner of an existing document.
+    function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+    }
+  }
+}
