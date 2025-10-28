@@ -61,8 +61,10 @@ export default function Hero() {
             </div>
             <div className="flex justify-center md:justify-end">
               <Card className="w-full max-w-md bg-card/80 text-card-foreground backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle>Log in to our banking and investment services</CardTitle>
+                <CardHeader className="text-center">
+                  <CardTitle>
+                    Log in to our banking and investment services
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <form className="space-y-4">
