@@ -21,7 +21,7 @@ import { useRouter } from 'next/navigation';
 const topMenuItems = [
     { href: '/dashboard', label: 'Overview', icon: Home },
     { href: '#', label: 'Accounts', icon: Wallet },
-    { href: '#', label: 'Transfers', icon: Repeat },
+    { href: '/dashboard/transfer', label: 'Transfers', icon: Repeat },
     { href: '#', label: 'Bill Payments', icon: Send },
     { href: '#', label: 'Credit Cards', icon: CreditCard },
     { href: '#', label: 'Loans', icon: Landmark },
