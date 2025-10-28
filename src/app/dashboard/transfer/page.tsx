@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TransferForm from '@/components/dashboard/transfer-form';
+import ExternalTransferForm from '@/components/dashboard/external-transfer-form';
 import { mockAccounts } from '@/lib/mock-data';
 
 export default function TransferPage() {
@@ -81,13 +82,23 @@ export default function TransferPage() {
             </Card>
           </div>
         </TabsContent>
-        <TabsContent value="external">
+        <TabsContent value="external" className="mt-6">
            <div className="flex justify-center">
              <Card className="w-full max-w-lg">
                 <CardHeader>
-                    <CardTitle>External Transfer (ACH)</CardTitle>
-                    <CardDescription>This feature is not yet implemented.</CardDescription>
+                    <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                         <Landmark className="h-6 w-6" />
+                        </div>
+                        <div>
+                            <CardTitle>External Bank Transfer (ACH)</CardTitle>
+                            <CardDescription>Send money to an account at another bank. Standard ACH processing times apply (1-3 business days).</CardDescription>
+                        </div>
+                    </div>
                 </CardHeader>
+                 <CardContent>
+                    <ExternalTransferForm accounts={mockAccounts} />
+                </CardContent>
              </Card>
             </div>
         </TabsContent>
