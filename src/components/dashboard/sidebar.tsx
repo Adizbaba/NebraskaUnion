@@ -1,5 +1,6 @@
 'use client';
 import {
+    Sidebar,
     SidebarContent,
     SidebarHeader,
     SidebarMenu,
@@ -31,7 +32,7 @@ const bottomMenuItems = [
 export default function DashboardSidebar() {
     const pathname = usePathname();
   return (
-    <>
+    <Sidebar>
       <SidebarHeader>
         <div className="flex items-center justify-between">
             <Logo />
@@ -66,6 +67,6 @@ export default function DashboardSidebar() {
             ))}
         </SidebarMenu>
       </SidebarFooter>
-    </>
+    </Sidebar>
   );
 }
