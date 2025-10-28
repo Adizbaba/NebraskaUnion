@@ -135,7 +135,7 @@ export default function RegisterPage() {
           termsAndConditionsAccepted: values.termsAndConditionsAccepted,
         };
 
-        const userDocRef = doc(firestore, 'users', user.uid, 'account', 'profile');
+        const userDocRef = doc(firestore, 'users', user.uid, 'account', user.uid);
         setDocumentNonBlocking(userDocRef, userAccountData, { merge: true });
       }
 
