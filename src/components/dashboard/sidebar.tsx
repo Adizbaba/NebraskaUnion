@@ -11,7 +11,7 @@ import {
     SidebarSeparator
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/layout/logo';
-import { Home, Wallet, Repeat, Send, CreditCard, Landmark, History, FileText, FileBarChart2, Settings, HelpCircle, LogOut } from 'lucide-react';
+import { Home, Wallet, Repeat, Send, CreditCard, Landmark, History, FileText, FileBarChart2, Settings, HelpCircle, LogOut, Bell } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/firebase';
@@ -21,22 +21,23 @@ import { useRouter } from 'next/navigation';
 
 const topMenuItems = [
     { href: '/dashboard', label: 'Overview', icon: Home },
-    { href: '#', label: 'Accounts', icon: Wallet },
+    { href: '/dashboard/accounts', label: 'Accounts', icon: Wallet },
     { href: '/dashboard/transfer', label: 'Transfers', icon: Repeat },
     { href: '/dashboard/pay-bills', label: 'Bill Payments', icon: Send },
-    { href: '#', label: 'Credit Cards', icon: CreditCard },
-    { href: '#', 'label': 'Loans', icon: Landmark },
+    { href: '/dashboard/credit-cards', label: 'Credit Cards', icon: CreditCard },
+    { href: '/dashboard/loans', 'label': 'Loans', icon: Landmark },
 ];
 
 const middleMenuItems = [
-    { href: '#', label: 'Transaction History', icon: History },
+    { href: '/dashboard/transaction-history', label: 'Transaction History', icon: History },
     { href: '/dashboard/statements', label: 'Statements', icon: FileText },
-    { href: '#', label: 'Reports', icon: FileBarChart2 },
+    { href: '/dashboard/reports', label: 'Reports', icon: FileBarChart2 },
 ];
 
 const bottomMenuItems = [
-    { href: '#', label: 'Settings', icon: Settings },
-    { href: '#', label: 'Help', icon: HelpCircle },
+    { href: '/dashboard/settings', label: 'Settings', icon: Settings },
+    { href: '/dashboard/alerts', label: 'Alerts', icon: Bell },
+    { href: '/dashboard/help', label: 'Help', icon: HelpCircle },
 ];
 
 
