@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -21,9 +22,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
 import type { Account } from '@/lib/mock-data';
 import { DollarSign, Library, Hash } from 'lucide-react';
+import TransferConfirmationModal from './transfer-confirmation-modal';
 
 const formSchema = z.object({
   fromAccount: z.string().min(1, 'Please select an account to transfer from.'),
@@ -44,7 +45,9 @@ interface ExternalTransferFormProps {
 export default function ExternalTransferForm({
   accounts,
 }: ExternalTransferFormProps) {
-  const { toast } = useToast();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [transferDetails, setTransferDetails] = useState<z.infer<typeof formSchema> | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,20 +62,23 @@ export default function ExternalTransferForm({
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    toast({
-      title: 'ACH Transfer Initiated',
-      description: `Successfully initiated a transfer of $${values.amount.toFixed(
-        2
-      )} to ${values.recipientBankName}.`,
-    });
-    form.reset();
+    const fromAccount = accounts.find(acc => acc.id === values.fromAccount);
+    setTransferDetails({ ...values, fromAccountName: fromAccount?.name });
+    setIsModalOpen(true);
   };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setTransferDetails(null);
+    form.reset();
+  }
 
   const availableAccounts = accounts.filter(
     (acc) => acc.type === 'transactional' || acc.type === 'savings'
   );
 
   return (
+    <>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
@@ -225,5 +231,19 @@ export default function ExternalTransferForm({
         </p>
       </form>
     </Form>
+    {transferDetails && (
+        <TransferConfirmationModal
+            isOpen={isModalOpen}
+            onOpenChange={handleModalClose}
+            details={[
+                { label: 'From', value: `${transferDetails.fromAccountName} (...${accounts.find(a => a.id === transferDetails.fromAccount)?.number.slice(-4)})` },
+                { label: 'To Bank', value: transferDetails.recipientBankName },
+                { label: 'To Account', value: `...${transferDetails.accountNumber.slice(-4)} (${transferDetails.recipientAccountType})` },
+                { label: 'Amount', value: `$${transferDetails.amount.toFixed(2)}`, isAmount: true },
+                { label: 'Memo', value: transferDetails.memo || 'N/A' },
+            ]}
+        />
+      )}
+    </>
   );
 }

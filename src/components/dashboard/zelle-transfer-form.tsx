@@ -21,7 +21,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
 import type { Account } from '@/lib/mock-data';
 import {
   DollarSign,
@@ -31,6 +30,7 @@ import {
   Users,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import TransferConfirmationModal from './transfer-confirmation-modal';
 
 const formSchema = z.object({
   recipient: z.string().min(1, 'Please enter an email or U.S. mobile number.'),
@@ -46,8 +46,9 @@ interface ZelleTransferFormProps {
 export default function ZelleTransferForm({
   accounts,
 }: ZelleTransferFormProps) {
-  const { toast } = useToast();
   const [transferType, setTransferType] = useState<'send' | 'request'>('send');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [transferDetails, setTransferDetails] = useState<z.infer<typeof formSchema> | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,24 +61,23 @@ export default function ZelleTransferForm({
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    toast({
-      title: `Zelle® ${
-        transferType === 'send' ? 'Payment Sent' : 'Request Sent'
-      }`,
-      description: `Successfully ${
-        transferType === 'send' ? 'sent' : 'requested'
-      } $${values.amount.toFixed(2)} ${
-        transferType === 'send' ? 'to' : 'from'
-      } ${values.recipient}.`,
-    });
-    form.reset();
+    const fromAccount = accounts.find(acc => acc.id === values.fromAccount);
+    setTransferDetails({ ...values, fromAccountName: fromAccount?.name, transferType });
+    setIsModalOpen(true);
   };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setTransferDetails(null);
+    form.reset();
+  }
 
   const availableAccounts = accounts.filter(
     (acc) => acc.type === 'transactional'
   );
 
   return (
+    <>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="rounded-lg border bg-muted/20 p-4">
@@ -219,5 +219,19 @@ export default function ZelleTransferForm({
         </p>
       </form>
     </Form>
+    {transferDetails && (
+        <TransferConfirmationModal
+            isOpen={isModalOpen}
+            onOpenChange={handleModalClose}
+            details={[
+                { label: 'From', value: `${transferDetails.fromAccountName} (...${accounts.find(a => a.id === transferDetails.fromAccount)?.number.slice(-4)})` },
+                { label: transferType === 'send' ? 'To' : 'From', value: transferDetails.recipient },
+                { label: 'Amount', value: `$${transferDetails.amount.toFixed(2)}`, isAmount: true },
+                { label: 'Memo', value: transferDetails.memo || 'N/A' },
+            ]}
+            transferType={transferType}
+        />
+      )}
+    </>
   );
 }
