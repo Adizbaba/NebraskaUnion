@@ -2,7 +2,12 @@
 'use client';
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import BillPayForm from "@/components/dashboard/bill-pay-form";
+import UpcomingPayments from "@/components/dashboard/upcoming-payments";
+import PaymentHistory from "@/components/dashboard/payment-history";
+import { mockAccounts, mockPayees, mockUpcomingPayments, mockPaymentHistory } from "@/lib/mock-data";
+import { UserPlus } from "lucide-react";
 
 export default function PayBillsPage() {
   return (
@@ -14,26 +19,38 @@ export default function PayBillsPage() {
         </p>
       </div>
 
-      <div className="flex justify-center">
-        <Card className="w-full max-w-lg">
-            <CardHeader>
-                <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                     <Send className="h-6 w-6" />
-                    </div>
-                    <div>
-                        <CardTitle>Coming Soon</CardTitle>
-                        <CardDescription>The bill payments feature is currently under construction. Please check back later!</CardDescription>
-                    </div>
-                </div>
-            </CardHeader>
-             <CardContent>
-                <div className="text-center p-8 text-muted-foreground">
-                    <p>We are working hard to bring you a seamless bill payment experience.</p>
-                </div>
-            </CardContent>
-         </Card>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+            <Card>
+                <CardHeader>
+                    <CardTitle>Pay a Bill</CardTitle>
+                    <CardDescription>Select a payee, enter the amount and date, and schedule your payment.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <BillPayForm accounts={mockAccounts} payees={mockPayees} />
+                </CardContent>
+            </Card>
         </div>
+        <div className="space-y-6">
+            <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                    <CardTitle>Upcoming Payments</CardTitle>
+                    <Button variant="ghost" size="sm">View All</Button>
+                </CardHeader>
+                <CardContent>
+                    <UpcomingPayments payments={mockUpcomingPayments} />
+                </CardContent>
+            </Card>
+            <Button variant="outline" className="w-full">
+                <UserPlus className="mr-2 h-4 w-4" />
+                Manage Payees
+            </Button>
+        </div>
+      </div>
+      
+      <div>
+        <PaymentHistory history={mockPaymentHistory} />
+      </div>
 
     </div>
   );

@@ -1,5 +1,6 @@
+
 import { CreditCard, Landmark, PiggyBank, Briefcase, Target, Home, LucideIcon } from "lucide-react";
-import { subDays, format } from 'date-fns';
+import { subDays, format, addDays } from 'date-fns';
 
 export interface Transaction {
   id: string;
@@ -24,6 +25,29 @@ export interface Account {
     monthlyFee: string;
     eStatements: 'Enabled' | 'Disabled';
     transactions: Transaction[];
+}
+
+export interface Payee {
+    id: string;
+    name: string;
+    accountNumber: string;
+}
+
+export interface UpcomingPayment {
+    id: string;
+    payeeName: string;
+    payeeLogo: string;
+    date: string;
+    amount: string;
+}
+
+export interface PaymentHistoryItem {
+    id: string;
+    payee: string;
+    date: string;
+    account: string;
+    amount: string;
+    status: 'Completed' | 'Pending' | 'Failed';
 }
 
 const generateTransactions = (count: number): Transaction[] => {
@@ -173,3 +197,25 @@ export const mockAssetsAndLiabilities = {
     totalDebts: '$447,379.95',
     netPosition: '$2,752,116.98'
 };
+
+export const mockPayees: Payee[] = [
+    { id: '1', name: 'City Electric', accountNumber: '**** 5432' },
+    { id: '2', name: 'Capital One Credit Card', accountNumber: '**** 1122' },
+    { id: '3', name: 'AT&T Mobile', accountNumber: '**** 8877' },
+    { id: '4', name: 'MidAmerican Energy', accountNumber: '**** 3344' },
+    { id: '5', name: 'Greenfield Mortgage', accountNumber: '**** 9900' },
+];
+
+export const mockUpcomingPayments: UpcomingPayment[] = [
+    { id: '1', payeeName: 'Capital One', payeeLogo: '/path/to/capitalone.png', date: format(addDays(new Date(), 5), 'MMM d'), amount: '$150.00' },
+    { id: '2', payeeName: 'AT&T', payeeLogo: '/path/to/att.png', date: format(addDays(new Date(), 10), 'MMM d'), amount: '$85.50' },
+    { id: '3', payeeName: 'Greenfield Mortgage', payeeLogo: '/path/to/mortgage.png', date: format(addDays(new Date(), 15), 'MMM d'), amount: '$2,100.00' },
+];
+
+export const mockPaymentHistory: PaymentHistoryItem[] = [
+    { id: '1', payee: 'City Electric', date: format(subDays(new Date(), 5), 'MMM d, yyyy'), account: 'Checking (...365)', amount: '$75.21', status: 'Completed' },
+    { id: '2', payee: 'Capital One', date: format(subDays(new Date(), 15), 'MMM d, yyyy'), account: 'Checking (...365)', amount: '$150.00', status: 'Completed' },
+    { id: '3', payee: 'AT&T Mobile', date: format(subDays(new Date(), 20), 'MMM d, yyyy'), account: 'Checking (...285)', amount: '$85.50', status: 'Completed' },
+    { id: '4', payee: 'MidAmerican Energy', date: format(subDays(new Date(), 32), 'MMM d, yyyy'), account: 'Checking (...365)', amount: '$120.10', status: 'Completed' },
+    { id: '5', payee: 'Netflix', date: format(subDays(new Date(), 2), 'MMM d, yyyy'), account: 'Checking (...365)', amount: '$15.99', status: 'Failed' },
+];
