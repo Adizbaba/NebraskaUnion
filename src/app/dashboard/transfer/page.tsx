@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TransferForm from '@/components/dashboard/transfer-form';
 import ExternalTransferForm from '@/components/dashboard/external-transfer-form';
+import ZelleTransferForm from '@/components/dashboard/zelle-transfer-form';
 import { mockAccounts } from '@/lib/mock-data';
 
 export default function TransferPage() {
@@ -102,13 +103,23 @@ export default function TransferPage() {
              </Card>
             </div>
         </TabsContent>
-        <TabsContent value="zelle">
+        <TabsContent value="zelle" className="mt-6">
             <div className="flex justify-center">
              <Card className="w-full max-w-lg">
                 <CardHeader>
-                    <CardTitle>Zelle®</CardTitle>
-                    <CardDescription>This feature is not yet implemented.</CardDescription>
+                    <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                         <Zap className="h-6 w-6" />
+                        </div>
+                        <div>
+                            <CardTitle>Send & Request Money with Zelle®</CardTitle>
+                            <CardDescription>Quickly send or request money from friends and family using their email or U.S. mobile number.</CardDescription>
+                        </div>
+                    </div>
                 </CardHeader>
+                 <CardContent>
+                    <ZelleTransferForm accounts={mockAccounts} />
+                 </CardContent>
              </Card>
             </div>
         </TabsContent>
