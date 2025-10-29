@@ -1,3 +1,4 @@
+
 'use client';
 import {
     Sidebar,
@@ -22,14 +23,14 @@ const topMenuItems = [
     { href: '/dashboard', label: 'Overview', icon: Home },
     { href: '#', label: 'Accounts', icon: Wallet },
     { href: '/dashboard/transfer', label: 'Transfers', icon: Repeat },
-    { href: '#', label: 'Bill Payments', icon: Send },
+    { href: '/dashboard/pay-bills', label: 'Bill Payments', icon: Send },
     { href: '#', label: 'Credit Cards', icon: CreditCard },
-    { href: '#', label: 'Loans', icon: Landmark },
+    { href: '#', 'label': 'Loans', icon: Landmark },
 ];
 
 const middleMenuItems = [
     { href: '#', label: 'Transaction History', icon: History },
-    { href: '#', label: 'Statements', icon: FileText },
+    { href: '/dashboard/statements', label: 'Statements', icon: FileText },
     { href: '#', label: 'Reports', icon: FileBarChart2 },
 ];
 

@@ -1,6 +1,6 @@
 
 import { CreditCard, Landmark, PiggyBank, Briefcase, Target, Home, LucideIcon } from "lucide-react";
-import { subDays, format, addDays } from 'date-fns';
+import { subDays, format, addDays, subMonths } from 'date-fns';
 
 export interface Transaction {
   id: string;
@@ -48,6 +48,13 @@ export interface PaymentHistoryItem {
     account: string;
     amount: string;
     status: 'Completed' | 'Pending' | 'Failed';
+}
+
+export interface Statement {
+    id: string;
+    accountId: string;
+    date: string;
+    downloadUrl: string;
 }
 
 const generateTransactions = (count: number): Transaction[] => {
@@ -219,3 +226,25 @@ export const mockPaymentHistory: PaymentHistoryItem[] = [
     { id: '4', payee: 'MidAmerican Energy', date: format(subDays(new Date(), 32), 'MMM d, yyyy'), account: 'Checking (...365)', amount: '$120.10', status: 'Completed' },
     { id: '5', payee: 'Netflix', date: format(subDays(new Date(), 2), 'MMM d, yyyy'), account: 'Checking (...365)', amount: '$15.99', status: 'Failed' },
 ];
+
+const generateStatements = (accounts: Account[]): Statement[] => {
+    const statements: Statement[] = [];
+    const today = new Date();
+    
+    accounts.forEach(account => {
+        // Generate for last 24 months
+        for(let i = 0; i < 24; i++) {
+            const statementDate = subMonths(today, i);
+            statements.push({
+                id: `stmt-${account.id}-${i}`,
+                accountId: account.id,
+                date: format(statementDate, 'MMMM yyyy'),
+                downloadUrl: '#',
+            });
+        }
+    });
+
+    return statements;
+};
+
+export const mockStatements: Statement[] = generateStatements(mockAccounts);
