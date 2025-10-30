@@ -1,8 +1,40 @@
 
 'use client';
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { HelpCircle } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+
+const faqItems = [
+  {
+    question: 'How do I open a new account?',
+    answer:
+      'You can apply for a new account by navigating to the "Accounts" page and clicking the "Apply for a new product" button. Follow the on-screen instructions to complete your application.',
+  },
+  {
+    question: 'What are the limits for external transfers?',
+    answer:
+      'External transfer limits vary based on your account type and history. Generally, the daily limit for standard ACH transfers is $10,000. For higher limits, please contact customer support.',
+  },
+  {
+    question: 'How can I change my password?',
+    answer:
+      'You can change your password by going to the "Settings" page and clicking on the "Security" tab. From there, you will find an option to "Change Password". You will be required to enter your current password and then your new password.',
+  },
+  {
+    question: 'Are my deposits FDIC insured?',
+    answer:
+      'Yes, all eligible deposits at Horizon Financial are insured by the FDIC up to the standard maximum of $250,000 per depositor, per insured bank, for each account ownership category.',
+  },
+   {
+    question: 'How do I report a lost or stolen card?',
+    answer:
+      'If your card is lost or stolen, please contact us immediately at 1-800-555-1234. You can also temporarily lock your card from the "Credit Cards" or "Accounts" section of your digital banking dashboard.',
+  },
+];
 
 export default function HelpPage() {
   return (
@@ -14,27 +46,20 @@ export default function HelpPage() {
         </p>
       </div>
 
-      <div className="flex justify-center">
-        <Card className="w-full max-w-lg">
-            <CardHeader>
-                <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                     <HelpCircle className="h-6 w-6" />
-                    </div>
-                    <div>
-                        <CardTitle>Coming Soon</CardTitle>
-                        <CardDescription>The help center is currently under construction. Please check back later!</CardDescription>
-                    </div>
-                </div>
-            </CardHeader>
-             <CardContent>
-                <div className="text-center p-8 text-muted-foreground">
-                    <p>We are working hard to build a comprehensive help center.</p>
-                </div>
-            </CardContent>
-         </Card>
-        </div>
-
+      <div className="mx-auto max-w-3xl">
+        <Accordion type="single" collapsible className="w-full">
+          {faqItems.map((item, index) => (
+            <AccordionItem value={`item-${index}`} key={index}>
+              <AccordionTrigger className="text-left font-semibold">
+                {item.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                {item.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
     </div>
   );
 }
