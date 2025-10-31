@@ -28,6 +28,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { Logo } from '@/components/layout/logo';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
@@ -68,6 +69,9 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4 sm:p-6 lg:p-8">
       <Card className="w-full max-w-md">
+        <div className="flex justify-center pt-6">
+          <Logo />
+        </div>
         <CardHeader className="text-center">
           <CardTitle>Welcome Back</CardTitle>
           <CardDescription>

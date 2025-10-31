@@ -46,6 +46,7 @@ import {
 } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { states } from '@/lib/states';
+import { Logo } from '@/components/layout/logo';
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
@@ -156,6 +157,9 @@ export default function RegisterPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4 sm:p-6 lg:p-8">
       <Card className="w-full max-w-3xl">
+        <div className="flex justify-center pt-6">
+          <Logo />
+        </div>
         <CardHeader className="text-center">
           <CardTitle>Create Your Account</CardTitle>
           <CardDescription>
