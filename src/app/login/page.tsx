@@ -70,13 +70,15 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-background p-4 sm:p-6 lg:p-8">
       <Card className="w-full max-w-md">
         <div className="flex justify-center pt-6">
-          <Image
-            src="https://i.imghippo.com/files/JSJ2722hIk.png"
-            alt="Nebraska Safe Union Logo"
-            width={64}
-            height={64}
-            className="h-16 w-16"
-          />
+          <Link href="/">
+            <Image
+              src="https://i.imghippo.com/files/JSJ2722hIk.png"
+              alt="Nebraska Safe Union Logo"
+              width={64}
+              height={64}
+              className="h-16 w-16"
+            />
+          </Link>
         </div>
         <CardHeader className="text-center">
           <CardTitle>Welcome Back</CardTitle>
