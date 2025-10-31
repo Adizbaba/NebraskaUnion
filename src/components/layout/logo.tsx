@@ -1,4 +1,4 @@
-import { Compass } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
@@ -11,9 +11,13 @@ export function Logo({ className }: { className?: string }) {
         className
       )}
     >
-      <div className="rounded-md bg-primary-foreground p-1.5 text-primary">
-        <Compass className="h-5 w-5" />
-      </div>
+      <Image 
+        src="https://i.imghippo.com/files/JSJ2722hIk.png"
+        alt="Nebraska Safe Union Logo"
+        width={32}
+        height={32}
+        className="h-8 w-8"
+      />
       <span className="font-headline">Nebraska Safe Union</span>
     </Link>
   );
