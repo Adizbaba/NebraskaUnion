@@ -85,7 +85,7 @@ export default function LoginPage() {
                     <FormLabel>Email Address</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="john.doe@example.com"
+                        placeholder="your-email@example.com"
                         {...field}
                       />
                     </FormControl>

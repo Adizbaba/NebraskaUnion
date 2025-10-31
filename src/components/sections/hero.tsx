@@ -144,7 +144,7 @@ export default function Hero() {
                             <FormLabel>Email Address</FormLabel>
                             <FormControl>
                               <Input
-                                placeholder="john.doe@example.com"
+                                placeholder="your-email@example.com"
                                 className="bg-background/70"
                                 {...field}
                               />

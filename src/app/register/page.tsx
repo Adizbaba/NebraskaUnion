@@ -172,7 +172,7 @@ export default function RegisterPage() {
                   <FormItem>
                     <FormLabel>Full Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="John Doe" {...field} />
+                      <Input placeholder="Your Full Name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -185,7 +185,7 @@ export default function RegisterPage() {
                   <FormItem>
                     <FormLabel>User ID</FormLabel>
                     <FormControl>
-                      <Input placeholder="johndoe123" {...field} />
+                      <Input placeholder="youruserid" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -198,7 +198,7 @@ export default function RegisterPage() {
                   <FormItem>
                     <FormLabel>Email Address</FormLabel>
                     <FormControl>
-                      <Input placeholder="john.doe@example.com" {...field} />
+                      <Input placeholder="your-email@example.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
