@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -22,10 +21,58 @@ import {
 import { Eye, EyeOff, Lock } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/firebase';
+import { useToast } from '@/hooks/use-toast';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+
+const formSchema = z.object({
+  email: z.string().email({ message: 'Invalid email address.' }),
+  password: z.string().min(1, { message: 'Password is required.' }),
+});
 
 export default function Hero() {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-family');
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const auth = useAuth();
+  const { toast } = useToast();
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await signInWithEmailAndPassword(auth, values.email, values.password);
+      toast({
+        title: 'Login Successful',
+        description: "You've been successfully logged in.",
+      });
+      router.push('/loading');
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: error.message || 'Could not log in.',
+      });
+    }
+  }
 
   return (
     <section className="relative h-auto w-full text-primary-foreground md:h-[600px]">
@@ -67,68 +114,88 @@ export default function Hero() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <form className="space-y-4">
-                    <div className="space-y-2">
-                      <Select defaultValue="digital-banking">
-                        <SelectTrigger className="bg-background/70">
-                          <SelectValue placeholder="Select a service" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="digital-banking">
-                            Digital Banking
-                          </SelectItem>
-                          <SelectItem value="mortgage">Mortgage</SelectItem>
-                          <SelectItem value="emoney">eMoney</SelectItem>
-                          <SelectItem value="paycard-employee-login">
-                            Paycard Employee Login
-                          </SelectItem>
-                          <SelectItem value="trust-service">
-                            Trust Service
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="user-id">User ID</Label>
-                      <Input
-                        id="user-id"
-                        placeholder="Enter your user ID"
-                        className="bg-background/70"
-                      />
-                    </div>
-                    <div className="relative space-y-2">
-                      <Label htmlFor="password">Password</Label>
-                      <Input
-                        id="password"
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="Enter your password"
-                        className="bg-background/70 pr-10"
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-1 top-6 h-7 w-7 text-muted-foreground hover:bg-transparent"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? (
-                          <EyeOff className="h-5 w-5" />
-                        ) : (
-                          <Eye className="h-5 w-5" />
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                      <div className="space-y-2">
+                        <Select defaultValue="digital-banking">
+                          <SelectTrigger className="bg-background/70">
+                            <SelectValue placeholder="Select a service" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="digital-banking">
+                              Digital Banking
+                            </SelectItem>
+                            <SelectItem value="mortgage">Mortgage</SelectItem>
+                            <SelectItem value="emoney">eMoney</SelectItem>
+                            <SelectItem value="paycard-employee-login">
+                              Paycard Employee Login
+                            </SelectItem>
+                            <SelectItem value="trust-service">
+                              Trust Service
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email Address</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="john.doe@example.com"
+                                className="bg-background/70"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
                         )}
-                        <span className="sr-only">
-                          {showPassword ? 'Hide password' : 'Show password'}
-                        </span>
+                      />
+                      <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                          <FormItem className="relative">
+                            <FormLabel>Password</FormLabel>
+                            <FormControl>
+                              <Input
+                                type={showPassword ? 'text' : 'password'}
+                                placeholder="********"
+                                className="bg-background/70 pr-10"
+                                {...field}
+                              />
+                            </FormControl>
+                             <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-1 top-6 h-7 w-7 text-muted-foreground hover:bg-transparent"
+                              onClick={() => setShowPassword(!showPassword)}
+                            >
+                              {showPassword ? (
+                                <EyeOff className="h-5 w-5" />
+                              ) : (
+                                <Eye className="h-5 w-5" />
+                              )}
+                              <span className="sr-only">
+                                {showPassword ? 'Hide password' : 'Show password'}
+                              </span>
+                            </Button>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+                        <Lock className="mr-2 h-4 w-4" />
+                        {form.formState.isSubmitting ? 'Logging In...' : 'LOG IN'}
                       </Button>
-                    </div>
-                    <Button type="submit" className="w-full">
-                      <Lock className="mr-2 h-4 w-4" />
-                      LOG IN
-                    </Button>
-                  </form>
+                    </form>
+                  </Form>
                   <div className="mt-4 flex justify-between text-sm">
                     <Link
-                      href="#"
+                      href="/register"
                       className="font-medium text-primary hover:underline"
                     >
                       Enroll for Digital Banking
