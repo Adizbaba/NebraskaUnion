@@ -7,6 +7,7 @@ import * as z from 'zod';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Eye, EyeOff, Lock } from 'lucide-react';
 
 import { useAuth } from '@/firebase';
@@ -28,7 +29,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Logo } from '@/components/layout/logo';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
@@ -70,7 +70,13 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-background p-4 sm:p-6 lg:p-8">
       <Card className="w-full max-w-md">
         <div className="flex justify-center pt-6">
-          <Logo />
+          <Image
+            src="https://i.imghippo.com/files/JSJ2722hIk.png"
+            alt="Nebraska Safe Union Logo"
+            width={64}
+            height={64}
+            className="h-16 w-16"
+          />
         </div>
         <CardHeader className="text-center">
           <CardTitle>Welcome Back</CardTitle>
