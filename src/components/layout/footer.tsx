@@ -4,7 +4,7 @@ import { Logo } from './logo';
 import { Button } from '../ui/button';
 
 const footerLinks = {
-  'ABOUT FIRST NEBRASKA': [
+  'ABOUT NEBRASKA SAFE UNION': [
     { name: 'About Us', href: '#' },
     { name: 'Investor Relations', href: '#' },
     { name: 'Careers', href: '#' },

@@ -150,7 +150,7 @@ export default function ZelleTransferForm({
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select your First Nebraska account" />
+                    <SelectValue placeholder="Select your Nebraska Safe Union account" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>

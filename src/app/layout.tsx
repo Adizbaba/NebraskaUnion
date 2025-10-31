@@ -4,9 +4,9 @@ import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
-  title: 'Horizon Financial | First Nebraska Credit Union',
+  title: 'Horizon Financial | Nebraska Safe Union',
   description:
-    'Welcome to First Nebraska Credit Union, your trusted financial partner.',
+    'Welcome to Nebraska Safe Union, your trusted financial partner.',
 };
 
 export default function RootLayout({

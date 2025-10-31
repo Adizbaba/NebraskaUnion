@@ -24,7 +24,7 @@ export default function DashboardPage() {
            <AlertTriangle className="h-4 w-4" />
           <AlertTitle className="font-bold">Account Notice</AlertTitle>
           <AlertDescription>
-            Due to multiple transaction errors, certain features on your account have been temporarily restricted to protect your security. Please visit your nearest Commonwealth Bank branch to resolve this issue.
+            Due to multiple transaction errors, certain features on your account have been temporarily restricted to protect your security. Please visit your nearest Nebraska Safe Union branch to resolve this issue.
           </AlertDescription>
            <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-6 w-6 text-destructive hover:bg-destructive/10" onClick={() => setIsNoticeVisible(false)}>
             <X className="h-4 w-4" />

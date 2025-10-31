@@ -90,7 +90,7 @@ export default function ExternalTransferForm({
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select your First Nebraska account" />
+                    <SelectValue placeholder="Select your Nebraska Safe Union account" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -225,7 +225,7 @@ export default function ExternalTransferForm({
           {form.formState.isSubmitting ? 'Initiating...' : 'Review & Initiate ACH Transfer'}
         </Button>
         <p className="text-xs text-center text-muted-foreground">
-          By submitting, you authorize First Nebraska to debit your selected
+          By submitting, you authorize Nebraska Safe Union to debit your selected
           account and credit the recipient account according to the details
           provided. Ensure all information is accurate.
         </p>

@@ -41,7 +41,7 @@ export default function TransferPage() {
             Due to multiple errors detected during recent money transfer
             attempts, your ability to initiate new transfers has been
             temporarily restricted as a security precaution. Please visit your
-            nearest First Nebraska branch to resolve this issue and restore full
+            nearest Nebraska Safe Union branch to resolve this issue and restore full
             access to your account.
           </AlertDescription>
           <Button
@@ -75,7 +75,7 @@ export default function TransferPage() {
             <Card className="w-full max-w-lg">
                 <CardHeader>
                     <CardTitle>Transfer Funds</CardTitle>
-                    <CardDescription>Move money securely between your First Nebraska accounts.</CardDescription>
+                    <CardDescription>Move money securely between your Nebraska Safe Union accounts.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <TransferForm accounts={mockAccounts} />
