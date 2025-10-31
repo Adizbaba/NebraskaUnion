@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useUser } from '@/firebase';
 import { Button } from '@/components/ui/button';
 import { Bell, LifeBuoy, LogOut, Settings, User as UserIcon } from 'lucide-react';
@@ -79,17 +80,23 @@ export default function DashboardLayout({
                           </div>
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/dashboard/settings">
                           <UserIcon className="mr-2 h-4 w-4" />
                           <span>Profile</span>
+                        </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                         <Link href="/dashboard/settings">
                           <Settings className="mr-2 h-4 w-4" />
                           <span>Settings</span>
+                        </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                         <Link href="/dashboard/help">
                           <LifeBuoy className="mr-2 h-4 w-4" />
                           <span>Support</span>
+                        </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={handleSignOut}>
